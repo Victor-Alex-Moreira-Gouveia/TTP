@@ -14,6 +14,8 @@
 - **Alpha 1.3** => Correção de bugs do software ListPY.
 - **Alpha 1.4** => Adição do software (CalcPY).
 - **Alpha 1.5** => Renomeação do software de TerminalPY para Tools Terminal in Python
+- **Versão 1.0** => Versão final adição de persistir dados.
+- **Versão 1.1** => Correção de bugs
 
 <hr>
 

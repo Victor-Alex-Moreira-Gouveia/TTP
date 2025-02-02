@@ -1,5 +1,6 @@
 import sys
 import time
+import os
 
 # Cores
 RED = "\033[91m"
@@ -66,13 +67,15 @@ def Calculadora():
 # Função ToDoList
 def ToDoList():
     print()
-    msg = f"{CYAN}Listpy{END}".center(50, "-")
+    msg = f"{CYAN}ListPY{END}".center(50, "-")
     print(msg)
     print()
     print("1) Adicionar tarefa")
     print("2) Remover tarefa")
     print("3) Listar tarefas")
-    print("4) Sair")
+    print("4) Salvar tarefas")
+    print("5) Carregar tarefas")
+    print("6) Sair")
     print()
     Datebase = []
     while True:
@@ -105,8 +108,22 @@ def ToDoList():
             for i in Datebase:
                 print(f"- {YELLOW}{i}{END}")
             print()
-            
+        
         elif cmd == "4":
+            with open("Data/todolist.txt", "w") as f:
+                for i in Datebase:
+                    f.write(f"{i}\n")
+            print(f"{GREEN}Tarefas salvas com sucesso{END}")
+            print()
+        
+        elif cmd == "5":
+            with open("Data/todolist.txt", "r") as f:
+                # Carregar as tarefas dentro do array Datebase durante 
+                Datebase = [i.strip() for i in f.readlines()] # Remove os espaços em branco
+            print(f"{GREEN}Tarefas carregadas com sucesso{END}")
+            print()
+        
+        elif cmd == "6":
             break
         
         elif cmd == "help":
@@ -114,7 +131,9 @@ def ToDoList():
             print("1) Adicionar tarefa")
             print("2) Remover tarefa")
             print("3) Listar tarefas")
-            print("4) Sair")
+            print("4) Salvar tarefas")
+            print("5) Carregar tarefas")
+            print("6) Sair")
             print()
         
         else:
@@ -127,17 +146,19 @@ def InicioPrograma():
     print(dado)
     print()
     print(f"{Text_StrongWithUnderline}Nome:{END} Tools Terminal in Python (TTP)")
-    print(f"{Text_StrongWithUnderline}Versão:{END} 1.5")
+    print(f"{Text_StrongWithUnderline}Versão:{END} 1.1")
     print(f"{Text_StrongWithUnderline}Linguagem:{END} Python")
     print(f"{Text_StrongWithUnderline}Desenvolvedor:{END} Victor Alex Moreira Gouveia")
-    print(f"{Text_StrongWithUnderline}GitHub: https://github.com/Victor-Alex-Moreira-Gouveia{END}")
-
+    print(f"{Text_StrongWithUnderline}GitHub:{END} https://github.com/Victor-Alex-Moreira-Gouveia")
+    print(f"{Text_StrongWithUnderline}Licença:{END} MIT")
+    print()
 
 InicioPrograma()
-mod1 = f" {CYAN}TerminalPY Versão 1.5{END} ".center(50, "-")
+mod1 = f" {CYAN}TerminalPY Versão 1.0{END} ".center(50, "-")
 print(mod1)
 print(f"{YELLOW}Digite 'help' para ver todos os comandos{END}")
 print()
+
 while True:
     cmd = input(f"<(TermoPY/{PURPLE}NULL{END})> ")
     cmd_formatado = cmd.lower()
@@ -169,12 +190,22 @@ while True:
     # Programas
     
     elif cmd_formatado == "listpy":
+        # Verifica se a pasta 'Data' existe e se não existir, cria a pasta
+        if not os.path.exists("Data"):
+            os.makedirs("Data")
+        
+        # Caso a pasta exista, verifica se o arquivo 'todolist.txt' existe e se não existir, cria o arquivo
+        if os.path.exists("Data"):
+            if not os.path.exists("Data/todolist.txt"):
+                with open("Data/todolist.txt", "w") as f:
+                    pass
+        
         ToDoList()
     
-    elif cmd_formatado == "Calcpy":
+    elif cmd_formatado == "calcpy":
         Calculadora()
     
     # Comandos de erro
     else:
-        print(f"{RED} Comando não reconhecido", END)
+        print(f"{RED}Comando não reconhecido", END)
         print(f"{YELLOW}Digite 'help' para ver todos os comandos{END}")
